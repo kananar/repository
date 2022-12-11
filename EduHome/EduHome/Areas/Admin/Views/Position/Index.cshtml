@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@model List<Position>
+<div class="container">
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Position Name</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Position position in Model)
+            {
+                <tr>
+                    <th scope="row">@position.Id</th>
+                    <td>@Html.Raw(position.Name)</td>
+
+
+                    <td><a asp-controller="position" asp-action="edit" asp-route-id="@position.Id"><i class="fas fa-edit text text-primary"></i></a></td>
+                    <td><a class=" delete-item" asp-controller="position" asp-action="delete" asp-route-id="@position.Id"><i class="fas fa-trash text text-danger"></i></a></td>
+                </tr>
+            }
+
+
+        </tbody>
+
+
+    </table>
+
+    <a style="display: block; text-decoration: none; color: white; width: 100%; height: 100%" asp-controller="position" asp-action="create"> <div style="width:100%; " class="btn btn-outline-success">Create position </div></a>
+</div>
+
+@section Scripts{
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+    $(".delete-item").click(function (e) {
+        e.preventDefault()
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    var link=$(this).attr("href")
+                    fetch(link).then(response => response.json()).then(data => {
+                        if (data.status == 200) {
+                            location.reload(true)
+                        }
+                    }
+                    );
+                    swal("Poof! Your imaginary file has been deleted!", {
+                        icon: "success",
+                    });
+                } else {
+                    swal("Your imaginary file is safe!");
+                }
+            });
+    })
+    </script>
+}
+

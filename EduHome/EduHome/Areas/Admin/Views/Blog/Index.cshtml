@@ -1,0 +1,111 @@
+﻿@model List<Blog>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Image</th>
+                <th scope="col">Title</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (Blog blog in Model)
+            {
+                <tr>
+                    <th scope="row">@blog.Id</th>
+                    <td> <img src="~/assets/img/blog/@blog.Img" object-fit: contain; width: 100px; height: 30px; /></td>
+                    <td>@Html.Raw(blog.Title)</td>
+
+                    <td><a asp-controller="blog" asp-action="edit" asp-route-id="@blog.Id"><i class="fas fa-edit text text-primary"></i></a></td>
+                    <td><a class=" delete-item" asp-controller="blog" asp-action="delete" asp-route-id="@blog.Id"><i class="fas fa-trash text text-danger"></i></a></td>
+
+                </tr>
+            }
+
+        </tbody>
+
+
+    </table>
+    <div>
+        <nav aria-label="...">
+            <ul class="pagination">
+
+                @if (ViewBag.CurrentPage == 1)
+                {
+
+
+                    <li class="page-item disabled">
+                        <a style="pointer-events:none" class="page-link">Previous</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item ">
+                        <a asp-controller="blog" asp-action="index" asp-route-page="@(ViewBag.CurrentPage-1)" class="page-link">Previous</a>
+                    </li>
+                }
+                @for (int i = 1; i <= ViewBag.TotalPage; i++)
+                {
+                    <li class="page-item  @(ViewBag.CurrentPage == i ?  "active" : "")" style="@(ViewBag.CurrentPage==i ? "pointer-events:none" :"")"><a class="page-link" asp-controller="blog" asp-action="index" asp-route-page="@i">@i</a></li>
+                }
+
+                @if (ViewBag.TotalPage == ViewBag.CurrentPage)
+                {
+                    <li class="page-item disabled">
+                        <a style="pointer-events:none" class="page-link" asp-controller="blog" asp-action="index" asp-route-page="@(ViewBag.CurrentPage)">Next</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="blog" asp-action="index" asp-route-page="@(ViewBag.CurrentPage+1)">Next</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+    <a style="display: block; text-decoration: none; color: white; width: 100%; " asp-controller="blog" asp-action="create"> <div style="width:100%; " class="btn btn-outline-success">Create Blog </div></a>
+
+</div>
+
+
+@section Scripts{
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+    $(".delete-item").click(function (e) {
+        e.preventDefault()
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    var link=$(this).attr("href")
+                    fetch(link).then(response => response.json()).then(data => {
+                        if (data.status == 200) {
+                            location.reload(true)
+                        }
+                    }
+                    );
+                    swal("Poof! Your imaginary file has been deleted!", {
+                        icon: "success",
+                    });
+                } else {
+                    swal("Your imaginary file is safe!");
+                }
+            });
+    })
+    </script>
+}

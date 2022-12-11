@@ -1,0 +1,69 @@
+﻿@model HomeVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- Header Area End -->
+<!-- Banner Area Start -->
+<div class="banner-area-wrapper">
+    <div class="banner-area text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="banner-content-wrapper">
+                        <div class="banner-content">
+                            <h2>about us</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Banner Area End -->
+<!-- About Start -->
+@await Html.PartialAsync("/Views/Shared/_InfoSection.cshtml", Model);
+<!-- About End -->
+<!-- Teacher Start -->
+<div class="teacher-area pb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="section-title text-center">
+                    <img src="~/assets/img/icon/section.png" alt="title">
+                    <h2>meet our teachers</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @await Html.PartialAsync("/Views/Shared/_teacherPartial.cshtml", Model.teachers);
+        </div>
+    </div>
+</div>
+<!-- Teacher End -->
+<!-- Testimonial Area Start -->
+@await Html.PartialAsync("/Views/Shared/_TestimanialPartial.cshtml", Model.students);
+
+<!-- Testimonial Area End -->
+<!-- Notice Start -->
+<section class="notice-area two pt-140 pb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="notice-right-wrapper mb-25 pb-25">
+                    <h3>TAKE A VIDEO TOUR</h3>
+                    <div class="notice-video">
+                        <div class="video-icon video-hover">
+                            <a class="video-popup" href="https://www.youtube.com/watch?v=to6Ghf8UL7o">
+                                <i class="zmdi zmdi-play"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @await Html.PartialAsync("/Views/Shared/_noticePartial.cshtml", Model.noticeVioards);
+        </div>
+    </div>
+</section>
+
+

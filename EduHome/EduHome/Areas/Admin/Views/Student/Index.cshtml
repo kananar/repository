@@ -1,0 +1,89 @@
+﻿@model List<Student>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="container">
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Image</th>
+                <th scope="col">FullName</th>
+                <th scope="col">Title</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (Student student in Model)
+            {
+            <tr>
+
+                <td>@student.Id</td>
+                <th scope="row"><img width="100" src="~/assets/img/testimonial/@student.Img" style="object-fit: contain;  " /></th>
+
+                <td>@Html.Raw(student.FullName)</td>
+                @if (student.Title.Length > 30)
+                {
+                    <td>@Html.Raw(student.Title.Substring(0, 30))</td>
+                }
+                else
+                {
+                    <td>@Html.Raw(student.Title)</td>
+                }
+                <td><a asp-controller="student" asp-action="edit" asp-route-id="@student.Id"><i class="fas fa-edit text text-primary"></i></a></td>
+                <td><a class=" delete-item" asp-controller="student" asp-action="delete" asp-route-id="@student.Id"><i class="fas fa-trash text text-danger"></i></a></td>
+            </tr>
+            }
+
+
+
+
+
+        </tbody>
+
+
+
+    </table>
+    <a style="display: block; text-decoration: none; color: white; width: 100%; " asp-controller="student" asp-action="create"> <div style="width:100%; " class="btn btn-outline-success">Create student </div></a>
+
+</div>
+
+@section Scripts{
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+    $(".delete-item").click(function (e) {
+        e.preventDefault()
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    var link=$(this).attr("href")
+                    fetch(link).then(response => response.json()).then(data => {
+                        if (data.status == 200) {
+                            location.reload(true)
+                        }
+                    }
+                    );
+                    swal("Poof! Your imaginary file has been deleted!", {
+                        icon: "success",
+                    });
+                } else {
+                    swal("Your imaginary file is safe!");
+                }
+            });
+    })
+    </script>
+
+
+
+}

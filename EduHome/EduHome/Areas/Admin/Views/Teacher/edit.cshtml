@@ -1,0 +1,271 @@
+﻿@model Teacher
+@{
+    ViewData["Title"] = "edit";
+}
+
+<div class="container">
+    <div class="card-body row">
+        <h1 style="text-align:center; margin-bottom:20px;">Teacher Create</h1>
+        <form method="post" class="forms-sample" enctype="multipart/form-data">
+            <div style="width:40%; margin-bottom:40px; padding-left:70px; ">
+                <label style="margin-bottom:10px;  font-size:20px;" font-size:20px;" asp-for="@Model.IMageFile">Teacher Image</label>
+                <input asp-for="@Model.IMageFile" accept="image/*" class="form-control">
+                <span class="mt-2 text text-danger" asp-validation-for="@Model.IMageFile"></span>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label style="margin-bottom:10px; font-size:20px;" asp-for="@Model.Name">Tacher Name</label>
+                    <textarea asp-for="@Model.Name" type="text"></textarea>
+                    <span class="mt-2 text text-danger" asp-validation-for="@Model.Name"></span>
+                </div>
+                <div class="col-md-4">
+                    <label style="margin-bottom:10px; font-size:20px;" asp-for="@Model.Surname">Tacher Surname</label>
+                    <textarea asp-for="@Model.Surname" type="text"></textarea>
+                    <span class="mt-2 text text-danger" asp-validation-for="@Model.Surname"></span>
+                </div>
+                <div class="col-md-4">
+                    <label style="margin-bottom:10px; font-size:20px;" asp-for="@Model.AboutMe">Tacher AboutMe</label>
+                    <textarea asp-for="@Model.AboutMe" type="text"></textarea>
+                    <span class="mt-2 text text-danger" asp-validation-for="@Model.AboutMe"></span>
+                </div>
+                <div class="col-md-4">
+                    <label style="margin-bottom:10px; font-size:20px;" asp-for="@Model.Degree">Tacher Degree</label>
+                    <textarea asp-for="@Model.Degree" type="text"></textarea>
+                    <span class="mt-2 text text-danger" asp-validation-for="@Model.Degree"></span>
+                </div>
+                <div class="col-md-4">
+                    <label style="margin-bottom:10px; font-size:20px;" asp-for="@Model.Experience">Tacher Experience</label>
+                    <textarea asp-for="@Model.Experience" type="text"></textarea>
+                    <span class="mt-2 text text-danger" asp-validation-for="@Model.Experience"></span>
+                </div>
+
+
+            </div>
+            <div class="col-md-4">
+                <label style="margin-bottom:10px; font-size:20px;" asp-for="@Model.Mail">Tacher Mail</label>
+                <input class="form-control" asp-for="@Model.Mail" type="email">
+                <span class="mt-2 text text-danger" asp-validation-for="@Model.Mail"></span>
+            </div>
+            <div class="col-md-4">
+                <label style="margin-bottom:10px; font-size:20px;" asp-for="@Model.PhoneNUmber">Tacher PhoneNUmber</label>
+                <input class="form-control" asp-for="@Model.PhoneNUmber" type="tel">
+                <span class="mt-2 text text-danger" asp-validation-for="@Model.PhoneNUmber"></span>
+            </div>
+            <div class="col-md-4 ">
+                <label class="form-label" asp-for="@Model.HobbieIds"> Hobbies</label>
+
+                <select class="form-select" asp-for="@Model.HobbieIds">
+
+                    @foreach (var item in ViewBag.Hobbiy)
+                    {
+
+                        if (Model.HobbieTeachers.FirstOrDefault(hb => hb.HobbieId == item.Id) != null)
+                        {
+                            <option selected value="@item.Id">@Html.Raw(item.Name)</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Id">@Html.Raw(item.Name)</option>
+                        }
+
+                    }
+                </select>
+                <span class="mt-2 text text-danger" asp-validation-for="@Model.HobbieIds"></span>
+            </div>
+
+            <div class="col-md-4 ">
+                <label class="form-label" asp-for="@Model.PositionIds"> Position</label>
+
+                <select class="form-select" asp-for="@Model.PositionIds">
+
+                    @foreach (var item in ViewBag.Position)
+                    {
+
+                        if (Model.PositionTeachers.FirstOrDefault(pt => pt.PositionId == item.Id) != null)
+                        {
+                            <option selected value="@item.Id">@Html.Raw(item.Name)</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Id">@Html.Raw(item.Name)</option>
+                        }
+
+                    }
+                </select>
+                <span class="mt-2 text text-danger" asp-validation-for="@Model.PositionIds"></span>
+            </div>
+
+
+            <div class="col-md-4 ">
+                <label class="form-label" asp-for="@Model.FacultyIds"> Faculty Name</label>
+
+                <select class="form-select" asp-for="@Model.FacultyIds">
+                    <optgroup label="Faculty">
+                        @foreach (var item in ViewBag.faculty)
+                        {
+
+                            if (Model.FacultyTeachers.FirstOrDefault(ft => ft.FaculteId == item.Id) != null)
+                            {
+                                <option selected value="@item.Id">@Html.Raw(item.FacultyName)</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Id">@Html.Raw(item.FacultyName)</option>
+                            }
+
+                        }
+                    </optgroup>
+                    <optgroup label="Department">
+                        @foreach (var item in ViewBag.faculty)
+                        {
+
+                            if (Model.FacultyTeachers.FirstOrDefault(ft => ft.FaculteId == item.Id) != null)
+                            {
+                                <option selected value="@item.Id">@Html.Raw(item.DepartmentName)</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Id">@Html.Raw(item.DepartmentName)</option>
+                            }
+
+                        }
+                    </optgroup>
+
+                </select>
+                <span class="mt-2 text text-danger" asp-validation-for="@Model.PositionIds"></span>
+            </div>
+
+
+
+
+
+
+            <div>
+                <div class="form-row col-12" id="features">
+                    @foreach (var item in Model.Skills)
+                    {
+                        <div class="form-group col-md-6" data-index="0">
+                            <label>Skill Name</label>
+                            <input class="form-control" value="@item.Name" name="SkillNames" type="text" />
+                            <span class="text-danger" asp-validation-for="@item.Name"></span>
+                            <label> Skill Points</label>
+                            <input class="form-control" value="@item.Point" name="SkillPoints" type="text" />
+                            <span class="text-danger" asp-validation-for="@item.Point"></span>
+                            <span><i style="cursor:pointer" class="fas fa-minus delete-feature"> </i></span>
+                        </div>
+                    }
+                </div>
+                <div class="form-row justify-content-center">
+                    <div class="form-group">
+                        <button data-nextIndex="2" class="add-feature btn btn-primary">+</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-row col-12" id="social">
+                @foreach (var item in Model.SocialTeachers)
+                {
+                    <div class="form-group col-md-6" data-index="0">
+                        <label>Social Icon</label>
+                        <input class="form-control" name="Icons" value="@item.Icon" type="text" />
+                        <span class="text-danger" asp-validation-for="Icons"></span>
+                        <label> Social Url</label>
+                        <input class="form-control" name="Urls" value="@item.Url" type="text" />
+                        <span class="text-danger" asp-validation-for="Urls"></span>
+                        <span><i style="cursor:pointer" class="fas fa-minus delete-feature"> </i></span>
+                    </div>
+                    }
+
+           
+                </div>
+                <div class="form-row justify-content-center">
+                    <div class="form-group">
+                        <button data-nextIndex="2" class="add-social btn btn-primary">+</button>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="col-md-12 mt-3">
+                    <a class="btn btn-dark" asp-controller="teacher" asp-action="index"><i class="fas fa-undo"></i> Back</a>
+                    <input type="submit" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+    </div>
+    @section Scripts{
+
+        <script>
+            $(document).ready(function () {
+                $(document).on("click", ".add-feature", function (e) {
+                    e.preventDefault();
+                    var nextIndex = $(this).attr("data-nextIndex");
+                    var inputGroup = `
+                        <div class="form-group col-md-6" data-index="0">
+                                            <label for="Skill_SkillNames">Skill Name</label>
+                                            <input class="form-control" type="text"  name="SkillNames" value="">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="SkillNames" data-valmsg-replace="true"></span>
+                                            <label for="Skill_SkillPoints"> Skill Points</label>
+                                            <input class="form-control" type="text"  name="SkillPoints" value="">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="SkillPoints" data-valmsg-replace="true"></span>
+                                            <span><i style="cursor:pointer" class="fas fa-minus delete-feature"> </i></span>
+                                        </div>
+`
+                    $("#features").append($(inputGroup))
+                    nextIndex = +nextIndex + 1;
+                    console.log(nextIndex)
+
+                    $(this).attr("data-nextIndex", nextIndex)
+                })
+                $(document).on("click", ".delete-feature", function (e) {
+                    e.preventDefault();
+
+                    $(this).parents(".form-group").empty();
+                })
+            })
+            $(document).ready(function () {
+                $(document).on("click", ".add-social", function (e) {
+                    e.preventDefault();
+                    var nextIndex = $(this).attr("data-nextIndex");
+                    var inputGroup = `
+                                                               <div class="form-group col-md-6" data-index="0">
+                                                    <label for="socialTeacher_Icon">Social Icon</label>
+                                                    <input class="form-control" type="text" data-val="true" data-val-length="The field Icon must be a string with a maximum length of 80." data-val-length-max="80" maxlength="80" name="Icons" value="">
+                                                    <span class="text-danger"></span>
+                                                    <label > Social Url</label>
+                                                    <input class="form-control" type="text" data-val="true" data-val-length="The field Url must be a string with a maximum length of 200." data-val-length-max="200"  maxlength="200" name="Urls" value="">
+                                                    <span class="text-danger"></span>
+                                                    <span><i style="cursor:pointer" class="fas fa-minus delete-feature"> </i></span>
+                                                </div>
+                                                          `
+                    $("#social").append($(inputGroup))
+                    nextIndex = +nextIndex + 1;
+                    console.log(nextIndex)
+
+                    $(this).attr("data-nextIndex", nextIndex)
+                })
+                $(document).on("click", ".delete-feature", function (e) {
+                    e.preventDefault();
+
+                    $(this).parents(".form-group").empty();
+                })
+            })
+        </script>
+
+    }
+    @section Script{
+        <script src="~/ckeditor/ckeditor.js"></script>
+        <script>
+            CKEDITOR.replace("Name")
+            CKEDITOR.replace("Surname")
+            CKEDITOR.replace("Experience")
+            CKEDITOR.replace("Degree")
+            CKEDITOR.replace("AboutMe")
+        </script>
+    }
+
+

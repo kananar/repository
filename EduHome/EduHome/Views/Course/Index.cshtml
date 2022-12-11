@@ -1,0 +1,95 @@
+﻿@model List<Course>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="banner-area-wrapper">
+    <div class="banner-area text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="banner-content-wrapper">
+                        <div class="banner-content">
+                            <h2>courses</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Banner Area End -->
+<!-- Course Start -->
+<div class="course-area pt-150 pb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="course-title">
+                    <h3>search courses</h3>
+                </div>
+                <div class="course-form">
+                    <form method="get" asp-action="Index">
+                        <input id="course-search" class="searh" type="search" placeholder="search course name or course's category name" value=" @ViewData["GetCourseDetails"]" name="CourseSearch" />
+                        <button type="submit">search</button>
+                        <ul class="list-group"></ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="old">
+            @await Html.PartialAsync("/Views/Shared/_coursesPagination.cshtml", Model)
+        </div>
+        <div class="new">
+          
+        </div>
+        <div class="container">
+
+            <div>
+                <nav aria-label="...">
+                    <ul class="pagination">
+
+                        @if (ViewBag.CurrentPage == 1)
+                        {
+
+
+                            <li class="page-item disabled">
+                                <a style="pointer-events:none" class="page-link">Previous</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item ">
+                                <a asp-controller="course" asp-action="index" asp-route-page="@(ViewBag.CurrentPage-1)" class="page-link">Previous</a>
+                            </li>
+                        }
+                        @for (int i = 1; i <= ViewBag.TotalPage; i++)
+                        {
+                            <li class="page-item  @(ViewBag.CurrentPage == i ?  "active" : "")" style="@(ViewBag.CurrentPage==i ? "pointer-events:none" :"")"><a class="page-link" asp-controller="course" asp-action="index" asp-route-page="@i">@i</a></li>
+                        }
+
+                        @if (ViewBag.TotalPage == ViewBag.CurrentPage)
+                        {
+                            <li class="page-item disabled">
+                                <a style="pointer-events:none" class="page-link" asp-controller="course" asp-action="index" asp-route-page="@(ViewBag.CurrentPage)">Next</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-controller="course" asp-action="index" asp-route-page="@(ViewBag.CurrentPage+1)">Next</a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+

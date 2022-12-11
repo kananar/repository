@@ -1,0 +1,149 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@model Setting
+<div style="background-color:gainsboro" class="container">
+    <div class="card-body row">
+        <div class="text text-danger" asp-validation-summary="ModelOnly"></div>
+        <form method="post" class="forms-sample" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6" margin-bottom:40px; ">
+                    <label style="margin-bottom:10px;  font-size:20px;" font-size:20px;" asp-for="@Model.LogoFile">Main Logo</label>
+                    <input asp-for="@Model.LogoFile" accept="image/*" class="form-control">
+                    <span class="mt-2 text text-danger" asp-validation-for="@Model.LogoFile"></span>
+                    <p style="margin-top:15px;">Exsist Logo</p>
+                    <img style="margin-top:15px; display:block;" width="200" src="~/assets/img/logo/@Model.Logo" />
+                </div>
+
+                <div class="col-md-6" margin-bottom:40px; ">
+                    <label style="margin-bottom:10px;  font-size:20px;" font-size:20px;" asp-for="@Model.FootorlogoFile">Footor logo Logo</label>
+                    <input asp-for="@Model.FootorlogoFile" accept="image/*" class="form-control">
+                    <span class="mt-2 text text-danger" asp-validation-for="@Model.FootorlogoFile"></span>
+                    <p style="margin-top:15px;">Exsist Footor Logo</p>
+                    <img style="margin-top:15px; display:block;" width="200" src="~/assets/img/logo/@Model.FooterLogo" />
+                </div>
+            </div>
+            <div style="margin-bottom:20px; margin-top:20px;" class="col-md-6">
+                <label style="margin-bottom:10px;  font-size:20px;" font-size:20px;" asp-for="@Model.InfoImgFile">Info Image</label>
+                <input asp-for="@Model.InfoImgFile" accept="image/*" class="form-control">
+                <span class="mt-2 text text-danger" asp-validation-for="@Model.InfoImgFile"></span>
+                <p style="margin-top:15px;">Exsist Info Image</p>
+                <img style="margin-top:15px; margin-bottom:30px; display:block;" width="200" src="~/assets/img/about/@Model.InfoImg" />
+            </div>
+
+
+            <div class="row">
+
+
+
+                <div class="col-md-4">
+                    <label style="margin-bottom:10px; font-size:20px;" asp-for="@Model.InfoTitle">Info Title</label>
+                    <textarea asp-for="@Model.InfoTitle" type="text" id="editor"></textarea>
+                    <span class="mt-2 text text-danger" asp-validation-for="@Model.InfoTitle"></span>
+                </div>
+                <div class="col-md-4">
+                    <label style="margin-bottom:10px; font-size:20px;" asp-for="@Model.InfoDescriptionTop">Info Description Top </label>
+                    <textarea asp-for="@Model.InfoDescriptionTop" type="text" id="editor1"></textarea>
+                    <span class="mt-2 text text-danger" asp-validation-for="@Model.InfoDescriptionTop"></span>
+                </div>
+                <div class="col-md-4">
+                    <label style="margin-bottom:10px; font-size:20px;" asp-for="@Model.InfoDescriptionBottom">Info Description Bottom </label>
+                    <textarea asp-for="@Model.InfoDescriptionBottom" type="text" id="editor2"></textarea>
+                    <span class="mt-2 text text-danger" asp-validation-for="@Model.InfoDescriptionBottom"></span>
+                </div>
+                <div class="col-md-4">
+                    <label style="margin-bottom:10px; font-size:20px;" asp-for="@Model.FooterDedcription">footer Description  </label>
+                    <textarea asp-for="@Model.FooterDedcription" type="text" id="editor3"></textarea>
+                    <span class="mt-2 text text-danger" asp-validation-for="@Model.FooterDedcription"></span>
+                </div>
+                <div class="col-md-4 ">
+                    <label asp-for="@Model.InfoLink">Info Link </label>
+                    <input asp-for="@Model.InfoLink" type="text" class="form-control">
+                    <span class="mt-2 text text-danger" asp-validation-for="@Model.InfoLink"></span>
+                </div>
+
+
+            </div>
+            <div class="col-md-4 ">
+                <label asp-for="@Model.PhoneNumber1">Phone Number 1: </label>
+                <input asp-for="@Model.PhoneNumber1" type="number" class="form-control">
+                <span class="mt-2 text text-danger" asp-validation-for="@Model.PhoneNumber1"></span>
+            </div>
+            <div class="col-md-4 ">
+                <label asp-for="@Model.PhoneNumber2">Phone Number 2: </label>
+                <input asp-for="@Model.PhoneNumber2" type="number" class="form-control">
+                <span class="mt-2 text text-danger" asp-validation-for="@Model.PhoneNumber2"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="@Model.Mail">Mail</label>
+                <input asp-for="@Model.Mail" type="email" class="form-control">
+                <span class="mt-2 text text-danger" asp-validation-for="@Model.Mail"></span>
+            </div>
+            <div class="col-md-4 ">
+                <label asp-for="@Model.WebAddress">Webadres</label>
+                <input asp-for="@Model.WebAddress" type="text" class="form-control">
+                <span class="mt-2 text text-danger" asp-validation-for="@Model.WebAddress"></span>
+            </div>
+            <div class="col-md-4 ">
+                <label asp-for="@Model.Address">Address</label>
+                <input asp-for="@Model.Address" type="text" class="form-control">
+                <span class="mt-2 text text-danger" asp-validation-for="@Model.Address"></span>
+            </div>
+            <div class="col-md-4 ">
+                <label asp-for="@Model.VideoUrl">VideoUrl</label>
+                <input asp-for="@Model.VideoUrl" type="url" class="form-control">
+                <span class="mt-2 text text-danger" asp-validation-for="@Model.VideoUrl"></span>
+            </div>
+            <div class="col-md-4 ">
+            <label asp-for="@Model.SearchIcon">Search Icon</label>
+            <input asp-for="@Model.SearchIcon" type="text" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.SearchIcon"></span>
+            <p style="margin-top:20px;">Exsist Search Icon</p>
+            <div>@Html.Raw(Model.SearchIcon)</div>
+
+        </div>
+
+            @foreach (SociamMediaSetting IconUrl in Model.SociamMediaSettings)
+            {
+                <div class="col-md-4 ">
+                    <label asp-for="@IconUrl.SocialIcon">Social Icon</label>
+                    <input asp-for="@IconUrl.SocialIcon" type="text" class="form-control">
+                    <span class="mt-2 text text-danger" asp-validation-for="@IconUrl.SocialIcon"></span>
+                </div>
+                <div>@Html.Raw(IconUrl.SocialIcon)</div>
+                <div class="col-md-4 ">
+                    <label asp-for="@IconUrl.SocialUrl">Social Url</label>
+                    <input asp-for="@IconUrl.SocialUrl" type="text" class="form-control">
+                    <span class="mt-2 text text-danger" asp-validation-for="@IconUrl.SocialUrl"></span>
+                </div>
+            }
+
+
+
+
+
+            <div class="col-md-12 mt-3">
+                <a class="btn btn-dark" asp-controller="setting" asp-action="index"><i class="fas fa-undo"></i> Back</a>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" integrity="sha512-o6XqxgrUsKmchwy9G5VRNWSSxTS4Urr4loO6/0hYdpWmFUfHqGzawGxeQGMDqYzxjY9sbktPbNlkIQJWagVZQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+}
+@section Script{
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace("editor")
+        CKEDITOR.replace("editor1")
+        CKEDITOR.replace("editor2")
+        CKEDITOR.replace("editor3")
+        CKEDITOR.replace("editor4")
+    </script>
+}
+

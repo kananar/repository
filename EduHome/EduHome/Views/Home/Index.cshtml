@@ -1,0 +1,247 @@
+﻿@model HomeVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+
+<section id="slider-container" class="slider-area two">
+
+    @if (TempData["Verify"] != null)
+    {
+        <input type="hidden" id="verifyJS" />
+    }
+
+    @if (TempData["Verified"] != null)
+    {
+        <input type="hidden" id="verifiedJS" />
+    }
+    <div class="slider-owl owl-theme owl-carousel">
+
+        @foreach (Slider slider in Model.Sliders)
+        {
+            <div class="single-slide item" style="background-image: url(assets/img/slider/@slider.SliderImg)">
+                <div class="slider-content-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="slide-content-wrapper">
+                                    <div class="slide-content text-center">
+                                        <h2>@Html.Raw(slider.Title)</h2>
+                                        <p>@Html.Raw(slider.Descrtiption)</p>
+                                        <a class="default-btn" asp-controller="about" asp-action="index">Learn more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</section>
+
+@await Html.PartialAsync("/Views/Shared/_InfoSection.cshtml", Model)
+
+<div class="courses-area two pt-150 pb-150 text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="section-title">
+                    <img src="~/assets/img/icon/section1.png" alt="section-title">
+                    <h2>COURSES WE OFFER</h2>
+                </div>
+            </div>
+        </div>
+        @await Html.PartialAsync("/Views/Shared/_coursesPagination.cshtml", Model.courses)
+    </div>
+</div>
+
+<section class="notice-area two pt-140">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="notice-right-wrapper mb-25 pb-25">
+                    <h3>TAKE A VIDEO TOUR</h3>
+                    <div class="notice-video">
+                        <div class="video-icon video-hover">
+                            <a class="video-popup" href="">
+                                <i class="zmdi zmdi-play"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @await Html.PartialAsync("/Views/Shared/_noticePartial.cshtml", Model.noticeVioards)
+        </div>
+    </div>
+</section>
+
+<div class="event-area two text-center pt-100 pb-145">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="section-title">
+                    <img src="~/assets/img/icon/section.png" alt="section-title">
+                    <h2>UPCOMMING EVENTS</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in Model.events)
+            {
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="single-event mb-35">
+                        <div class="event-img">
+                            <a asp-controller="event" asp-action="details" asp-route-Id="@item.Id"><img src="~/assets/img/event/@item.Img" alt="event"></a>
+                        </div>
+                        <div class="event-content text-left">
+                            <h3>@item.StarDate.ToString("dd MMMM yyyy")</h3>
+                            <h4><a asp-controller="event" asp-action="details" asp-route-Id="@item.Id">ADVANCE PHP WORKSHOP</a></h4>
+                            <ul>
+                                <li><i class="fa fa-clock-o"></i>@item.FinisDate.ToString("dd MMMM yy")</li>
+                                <li><i class="fa fa-map-marker"></i>@Html.Raw(item.Venue)</li>
+                            </ul>
+                            <div class="event-content-right">
+                                <a class="default-btn" asp-controller="event" asp-action="details" asp-route-Id="@item.Id">join now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("/Views/Shared/_TestimanialPartial.cshtml", Model.students)
+
+
+<div class="blog-area pt-150 pb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="section-title text-center">
+                    <img src="~/assets/img/icon/section.png" alt="section-title">
+                    <h2>LATEST FROM BLOG</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in Model.blogs)
+            {
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="single-blog">
+                        <div class="blog-img">
+                            <a asp-controller="blog" asp-action="details" asp-route-Id="@item.Id"><img src="~/assets/img/blog/@item.Img" alt="blog"></a>
+                            <div class="blog-hover">
+                                <a asp-controller="blog" asp-action="details" asp-route-Id="@item.Id"><i class="fa fa-link"></i></a>
+                            </div>
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-top">
+                                <p>By Ahad  /  @item.DateTime.ToString("dd MMMM yyyy") /  <i class="fa fa-comments-o"></i> 4</p>
+                            </div>
+                            <div class="blog-bottom">
+                                <h2><a href="blog-details.html">@Html.Raw(item.Title)</a></h2>
+                                <a asp-controller="blog" asp-action="details" asp-route-Id="@item.Id">read more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+@section Script{
+    <script>
+        $(document).ready(function () {
+            if ($("#toastrJs").length) {
+                if ($("#toastrJs").attr("data-succeed").toLowerCase() == "true") {
+                    Command: toastr["success"]("Your order has been succesfully created")
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+                } else {
+                    Command: toastr["error"]("Basket is empty")
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+                }
+            }
+            if ($("#verifyJS").length) {
+                Command: toastr["success"]("Please verify your email")
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "7000",
+                    "extendedTimeOut": "2000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            }
+            if ($("#verifiedJS").length) {
+                Command: toastr["success"]("Your email has been verified")
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "7000",
+                    "extendedTimeOut": "2000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            }
+        })
+    </script>
+}

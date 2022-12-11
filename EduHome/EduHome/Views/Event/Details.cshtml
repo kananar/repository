@@ -1,0 +1,219 @@
+﻿@model HomeVM
+@{
+    ViewData["Title"] = "Details";
+}
+
+<!-- Banner Area Start -->
+<div class="banner-area-wrapper">
+    <div class="banner-area text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="banner-content-wrapper">
+                        <div class="banner-content">
+                            <h2>event / details</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Banner Area End -->
+<!-- Event Details Start -->
+<div class="event-details-area blog-area pt-150 pb-140">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="event-details">
+                    <div class="event-details-img">
+                        <img src="~/assets/img/event/@Model.eevent.Img" alt="event-details">
+                        <div class="event-date">
+                            <h3>@Model.eevent.StarDate.ToString("dd MM ")</h3>
+                        </div>
+                    </div>
+                    <div class="event-details-content">
+                        <h2>@Html.Raw(Model.eevent.Title)</h2>
+                        <ul>
+                            <li>@Model.eevent.FinisDate.ToString("hh")</li>
+                            <li><span>venue : </span>@Html.Raw(Model.eevent.Venue)</li>
+                        </ul>
+                        <p>@Html.Raw(Model.eevent.Description) </p>
+
+                        <div class="speakers-area fix">
+                            <h4>speakers</h4>
+                            @foreach (var item in Model.Speakers)
+                            {
+                                <div class="single-speaker">
+                                    <div class="speaker-img">
+                                        <img src="~/assets/img/event/@item.Img" alt="speaker">
+                                    </div>
+                                    <div class="speaker-name">
+                                        <h5>@Html.Raw(item.Name) @Html.Raw(item.SurnameName)</h5>
+                                        <p>@Html.Raw(item.SpeakerPositions.FirstOrDefault().Position.Name) </p>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                    <div class="reply-area">
+                        <h3> Comment</h3>
+                        <div class="container mt-5">
+                            <div class="d-flex justify-content-center row">
+                                <div class="col-md-8">
+                                    <div class="d-flex flex-column comment-section">
+                                        <div class="bg-white p-2">
+                                            @foreach (var item in Model.eevent.Comments.OrderBy(c => c.Date))
+                                            {
+                                                if (item.Appuser.UserName == User.Identity.Name)
+                                                {
+                                                    <div class="d-flex flex-row user-info">
+                                                        <img class="rounded-circle" src="~/assets/img/event/@Model.eevent.Img" width="40">
+                                                        <div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold                   "></span>@Model.appusers.FirstOrDefault(s => s.Id == item.AppuserId).Name.ToUpper():<span class="date              text-black-50">@item.Date.ToString("dd MMMM yyyy")</span></div>
+                                                    </div>
+                                                    <div class="mt-2 row">
+                                                        <p class="comment-text">@item.Message
+
+
+                                                        <p class="text text-danger"><a asp-action="DeleteComment" asp-route-id="@item.Id" class="text-danger">Delete</a></p></p>
+
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="d-flex flex-row user-info">
+                                                        <img class="rounded-circle" src="~/assets/img/event/@Model.eevent.Img" width="40">
+                                                        <div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold                   "></span>@Model.appusers.FirstOrDefault(s => s.Id == item.AppuserId).Name.ToUpper():<span class="date              text-black-50">@item.Date.ToString("dd MMMM yyyy")</span></div>
+                                                    </div>
+                                                    <div class="mt-2 row">
+                                                        <p class="comment-text">@item.Message
+
+
+                                                       </p>
+
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                        <div class="bg-white">
+
+                                        </div>
+                                        <div class="bg-light p-2">
+                                            <div class="d-flex flex-row align-items-start">
+
+                                                <form asp-action="AddComment" method="post">
+                                                    <div class="row">
+
+                                                        <div class="col-md-12">
+
+                                                            <input type="hidden" name="EventId" value="@Model.eevent.Id" />
+
+                                                            <textarea name="Message" cols="5" rows="5"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit"><span>Add Comment</span></button>
+
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="blog-sidebar right">
+                    <div class="single-blog-widget mb-50">
+                        <h3>search</h3>
+                        <div class="blog-search">
+                            <form id="search" action="#">
+                                <input type="search" placeholder="Search..." name="search" />
+                                <button type="submit">
+                                    <span><i class="fa fa-search"></i></span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="single-blog-widget mb-50">
+                        <h3>categories</h3>
+                        <ul>
+                            <li><a href="#">CSS Engineering (10)</a></li>
+                            <li><a href="#">Political Science (12)</a></li>
+                            <li><a href="#">Micro Biology (08)</a></li>
+                            <li><a href="#">HTML5 &amp; CSS3 (15)</a></li>
+                            <li><a href="#">Web Design (20)</a></li>
+                            <li><a href="#">PHP (23)</a></li>
+                        </ul>
+                    </div>
+                    <div class="single-blog-widget mb-50">
+                        <div class="single-blog-banner">
+                            <a href="blog-details.html" id="blog"><img src="~/assets/img/blog/blog-img.jpg" alt="blog"></a>
+                            <h2>best<br> eductaion<br> theme</h2>
+                        </div>
+                    </div>
+                    <div class="single-blog-widget mb-50">
+                        <h3>latest post</h3>
+                        <div class="single-post mb-30">
+                            <div class="single-post-img">
+                                <a href="blog-details.html">
+                                    <img src="~/assets/img/post/post1.jpg" alt="post">
+                                    <div class="blog-hover">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="single-post-content">
+                                <h4><a href="blog-details.html">English Language Course for you</a></h4>
+                                <p>By Alex  /  June 20, 2017</p>
+                            </div>
+                        </div>
+                        <div class="single-post mb-30">
+                            <div class="single-post-img">
+                                <a href="blog-details.html">
+                                    <img src="~/assets/img/post/post2.jpg" alt="post">
+                                    <div class="blog-hover">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="single-post-content">
+                                <h4><a href="blog-details.html">Advance Web Design and Develop</a></h4>
+                                <p>By Alex  /  June 20, 2017</p>
+                            </div>
+                        </div>
+                        <div class="single-post">
+                            <div class="single-post-img">
+                                <a href="blog-details.html">
+                                    <img src="~/assets/img/post/post3.jpg" alt="post">
+                                    <div class="blog-hover">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="single-post-content">
+                                <h4><a href="blog-details.html">English Language Course for you</a></h4>
+                                <p>By Alex  /  June 20, 2017</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single-blog-widget">
+                        <h3>tags</h3>
+                        <div class="single-tag">
+                            <a href="blog-details.html" class="mr-10 mb-10">course</a>
+                            <a href="blog-details.html" class="mr-10 mb-10">education</a>
+                            <a href="blog-details.html" class="mb-10">teachers</a>
+                            <a href="blog-details.html" class="mr-10">learning</a>
+                            <a href="blog-details.html" class="mr-10">university</a>
+                            <a href="blog-details.html">events</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

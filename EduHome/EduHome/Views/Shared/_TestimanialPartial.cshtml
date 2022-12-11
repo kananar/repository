@@ -1,0 +1,30 @@
+﻿@model List<Student>
+
+
+
+   
+<div class="testimonial-area pt-110 pb-105 text-center">
+    <div class="container">
+        <div class="row">
+            <div class="testimonial-owl owl-theme owl-carousel">
+                <div class="col-md-8 col-md-offset-2 col-sm-12">
+                    <div class="single-testimonial">
+                        <div class="testimonial-info">
+                            @foreach (var item in Model)
+                            {
+                                <div class="testimonial-img">
+                                    <img src="~/assets/img/testimonial/@item.Img" alt="testimonial">
+                                </div>
+                                <div class="testimonial-content">
+                                    <p>@Html.Raw(item.Title)</p>
+                                    <h4>@Html.Raw(item.FullName)</h4>
+                                    <h5>@Html.Raw(item.Position.Name)</h5>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

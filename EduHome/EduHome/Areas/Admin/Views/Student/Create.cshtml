@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+}
+
+@model Student
+<div style="background-color:gainsboro" class="container">
+    <div class="card-body row">
+        <div class="text text-danger" asp-validation-summary="ModelOnly"></div>
+        <form method="post" class="forms-sample" enctype="multipart/form-data">
+
+
+            <div style="margin-bottom:20px; margin-top:20px;" class="col-md-6">
+                <label style="margin-bottom:10px;  font-size:20px;" font-size:20px;" asp-for="@Model.ImageFile">Student Image</label>
+                <input asp-for="@Model.ImageFile" accept="image/*" class="form-control">
+                <span class="mt-2 text text-danger" asp-validation-for="@Model.ImageFile"></span>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <label style="margin-bottom:10px; font-size:20px;" asp-for="@Model.FullName"> student Fullname</label>
+                    <textarea asp-for="@Model.FullName" type="text"></textarea>
+                    <span class="mt-2 text text-danger" asp-validation-for="@Model.FullName"></span>
+                </div>
+                <div class="col-md-4">
+                    <label style="margin-bottom:10px; font-size:20px;" asp-for="@Model.Title">Student Title  </label>
+                    <textarea asp-for="@Model.Title" type="text"></textarea>
+                    <span class="mt-2 text text-danger" asp-validation-for="@Model.Title"></span>
+                </div>
+
+
+            </div>
+            <div class="col-md-4 ">
+                <label class="form-label" asp-for="@Model.PositionId">Positin Name</label>
+
+                <select class="form-select" asp-for="@Model.PositionId">
+                    @foreach (var item in ViewBag.Position)
+                    {
+                        <option value="@item.Id">@Html.Raw(item.Name)</option>
+                    }
+                </select>
+
+            </div>
+
+
+
+
+
+
+            <div class="col-md-12 mt-3">
+                <a class="btn btn-dark" asp-controller="student" asp-action="index"><i class="fas fa-undo"></i> Back</a>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" integrity="sha512-o6XqxgrUsKmchwy9G5VRNWSSxTS4Urr4loO6/0hYdpWmFUfHqGzawGxeQGMDqYzxjY9sbktPbNlkIQJWagVZQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+}
+@section Script{
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace("FullName")
+        CKEDITOR.replace("Title")
+
+    </script>
+}
+
+

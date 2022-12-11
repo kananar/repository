@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+@model Speaker
+<div style="background-color:gainsboro" class="container">
+    <div class="card-body row">
+        <div class="text text-danger" asp-validation-summary="ModelOnly"></div>
+        <form method="post" class="forms-sample" enctype="multipart/form-data">
+
+
+            <div style="margin-bottom:20px; margin-top:20px;" class="col-md-6">
+                <label style="margin-bottom:10px;  font-size:20px;" font-size:20px;" asp-for="@Model.ImgFile">Speaker Image</label>
+                <input asp-for="@Model.ImgFile" accept="image/*" class="form-control">
+                <span class="mt-2 text text-danger" asp-validation-for="@Model.ImgFile"></span>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <label style="margin-bottom:10px; font-size:20px;" asp-for="@Model.Name"> Speaker Name</label>
+                    <textarea asp-for="@Model.Name" type="text"></textarea>
+                    <span class="mt-2 text text-danger" asp-validation-for="@Model.Name"></span>
+                </div>
+                <div class="col-md-4">
+                    <label style="margin-bottom:10px; font-size:20px;" asp-for="@Model.SurnameName">Speaker Surname  </label>
+                    <textarea asp-for="@Model.SurnameName" type="text"></textarea>
+                    <span class="mt-2 text text-danger" asp-validation-for="@Model.SurnameName"></span>
+                </div>
+
+
+                <div class="col-md-4 ">
+                    <label class="form-label" asp-for="@Model.PositionIds">Position </label>
+
+                    <select class="form-select" multiple asp-for="@Model.PositionIds">
+
+
+                        @foreach (var item in ViewBag.Position)
+                        {
+
+                            <option value="@item.Id">@Html.Raw(item.Name)</option>
+
+                        }
+                    </select>
+                    <span class="mt-2 text text-danger" asp-validation-for="@Model.PositionIds"></span>
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+            <div class="col-md-12 mt-3">
+                <a class="btn btn-dark" asp-controller="speaker" asp-action="index"><i class="fas fa-undo"></i> Back</a>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" integrity="sha512-o6XqxgrUsKmchwy9G5VRNWSSxTS4Urr4loO6/0hYdpWmFUfHqGzawGxeQGMDqYzxjY9sbktPbNlkIQJWagVZQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+}
+@section Script{
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace("Name")
+        CKEDITOR.replace("SurnameName")
+      
+    </script>
+}

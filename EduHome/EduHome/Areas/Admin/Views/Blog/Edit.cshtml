@@ -1,0 +1,61 @@
+﻿@model Blog
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container">
+    <form method="post" class="forms-sample" enctype="multipart/form-data">
+        <div class="text text-danger" asp-validation-summary="ModelOnly"></div>
+
+        <div style="margin-bottom:20px; margin-top:20px;" class="col-md-6">
+            <label style="margin-bottom:10px;  font-size:20px;" font-size:20px;" asp-for="@Model.ImgFile">Blog Image</label>
+            <input asp-for="@Model.ImgFile" accept="image/*" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.ImgFile"></span>
+
+        </div>
+
+        <div class="row">
+
+
+
+            <div class="col-md-4">
+                <label style="margin-bottom:10px; font-size:20px;" asp-for="@Model.Title"> Title</label>
+                <textarea asp-for="@Model.Title" type="text" id="editor"></textarea>
+                <span class="mt-2 text text-danger" asp-validation-for="@Model.Title"></span>
+            </div>
+            <div class="col-md-4">
+                <label style="margin-bottom:10px; font-size:20px;" asp-for="@Model.Description"> Description Top </label>
+                <textarea asp-for="@Model.Description" type="text" id="editor1"></textarea>
+                <span class="mt-2 text text-danger" asp-validation-for="@Model.Description"></span>
+            </div>
+
+
+        </div>
+        <div style="margin-top:20px;">
+            <label style="margin-bottom:10px; font-size:20px;" asp-for="@Model.DateTime">DateTime</label>
+            <input asp-for="@Model.DateTime" type="date" id="editor2">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.DateTime"></span>
+        </div>
+        <div class="col-md-12 mt-3">
+            <a class="btn btn-dark" asp-controller="blog" asp-action="index"><i class="fas fa-undo"></i> Back</a>
+            <button type="submit" class="btn btn-primary"> Save Changes</button>
+        </div>
+
+    </form>
+
+</div>
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" integrity="sha512-o6XqxgrUsKmchwy9G5VRNWSSxTS4Urr4loO6/0hYdpWmFUfHqGzawGxeQGMDqYzxjY9sbktPbNlkIQJWagVZQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+}
+
+@section Script{
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace("Title")
+        CKEDITOR.replace("Description")
+    </script>
+}
+

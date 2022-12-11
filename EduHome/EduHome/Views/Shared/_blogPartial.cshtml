@@ -1,0 +1,24 @@
+﻿@model List<Blog>
+
+@foreach (Blog blog in Model)
+{
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="single-blog mb-60">
+            <div class="blog-img">
+                <a asp-controller="blog" asp-action="details"  asp-route-Id="@blog.Id"><img src="~/assets/img/blog/@blog.Img" alt="blog"></a>
+                <div class="blog-hover">
+                    <i class="fa fa-link"></i>
+                </div>
+            </div>
+            <div class="blog-content">
+                <div class="blog-top">
+                    <p>By Ahad  /  @blog.DateTime.ToString("MMMM dd yyyy")  /  <i class="fa fa-comments-o"></i> 4</p>
+                </div>
+                <div class="blog-bottom">
+                    <h2><a asp-controller="blog" asp-action="details" asp-route-Id="@blog.Id">@Html.Raw(blog.Title) </a></h2>
+                    <a asp-controller="blog" asp-action="details"  asp-route-Id="@blog.Id">read more</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
